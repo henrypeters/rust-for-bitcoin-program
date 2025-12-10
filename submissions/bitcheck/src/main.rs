@@ -469,6 +469,7 @@
 use sha2::{Digest, Sha256};
 use ripemd::{Ripemd160};
 use std::io::{self, Write};
+use colored::*;
 
 // Utility functions
 fn hash160(data: &str) -> String {
@@ -499,12 +500,10 @@ impl Script {
     fn new(data: &str) -> Self {
         let (hex, asm) = if data.chars().all(|c| c.is_ascii_hexdigit() || c.is_whitespace()) 
             && !data.contains(' ') {
-            // It's hex
             let h = data.to_string();
             let a = Self::hex_to_asm(&h);
             (h, a)
         } else {
-            // It's asm
             let a = data.to_string();
             let h = Self::asm_to_hex(&a);
             (h, a)
@@ -834,17 +833,17 @@ impl Opcodes {
 }
 
 fn main() {
-    println!("Bit_Check");
-    println!("==========================\n");
+    println!("{}", "\nBit_Check".yellow().bold());
+    println!("{}", "==========================\n".black());
 
-    print!("Locking Script: ");
+    print!("{}", "Locking Script: ".blue().bold());
     io::stdout().flush().unwrap();
     let mut locking_input = String::new();
     io::stdin().read_line(&mut locking_input).unwrap();
     let locking_script = Script::new(locking_input.trim());
     println!("Type: {:?}\n", locking_script.script_type);
 
-    print!("Unlocking Script: ");
+    print!("{}", "Unlocking Script: ".blue().bold());
     io::stdout().flush().unwrap();
     let mut unlocking_input = String::new();
     io::stdin().read_line(&mut unlocking_input).unwrap();
@@ -864,13 +863,14 @@ fn main() {
             Ok(stack) => {
                 println!("\nFinal Stack: {:?}", stack);
                 if Script::validate(&stack) {
-                    println!("\n✓ This is a valid script!");
+                    println!("{}", "\n✓ This is a valid script!".green());
                 } else {
                     println!("\n✗ This is not a valid script.");
+                    println!("");
                 }
             }
             Err(e) => {
-                println!("\n✗ Script execution failed: {}", e);
+                println!("\n Script execution failed: {}", e);
             }
         }
     }
