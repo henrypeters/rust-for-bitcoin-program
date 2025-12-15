@@ -25,10 +25,10 @@ cargo run
 Input locking script (scriptPubKey) and unlocking script (scriptSig). Accepts hex or assembly format.
 
 ```
-Locking Script: OP_DUP OP_HASH160 89abcdefabbaabbaabbaabbaabbaabbaabbaabba OP_EQUALVERIFY OP_CHECKSIG
+Locking Script: OP_DUP OP_HASH160 6291ad5107bf1ab687dc744cc9d082aa9522eff0 OP_EQUALVERIFY OP_CHECKSIG
 Type: P2PKH
 
-Unlocking Script: 3045022100... 04ae1a62...
+Unlocking Script: 3045022100... 03d19433...
 
 Run this script? (y/n): y
 
